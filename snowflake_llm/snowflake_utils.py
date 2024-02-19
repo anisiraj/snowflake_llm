@@ -1,9 +1,9 @@
 import os
 from snowflake_llm import config
-from langchain import SQLDatabase
+from langchain_community.utilities import SQLDatabase
 from urllib.parse import quote_plus
 
-def get_connection_url(database=None, schema=None):
+def _get_connection_url(database=None, schema=None):
     snowflake_account = os.getenv('SNOWFLAKE_ACCOUNT')
     username = os.getenv('SNOWFLAKE_USERNAME')
     password = os.getenv('SNOWFLAKE_PASSWORD')
@@ -12,13 +12,12 @@ def get_connection_url(database=None, schema=None):
     warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
     role = os.getenv('SNOWFLAKE_ROLE')
     snowflake_url = f"snowflake://{username}:{quote_plus(password)}@{snowflake_account}/{database}/{schema}?warehouse={warehouse}&role={role}"
-
     return snowflake_url
 
 
 def get_lagchain_connection(database=None, schema=None):
     snowflake_sqlalchemy_20_monkey_patches()
-    url = get_connection_url(database, schema)
+    url = _get_connection_url(database, schema)
     return SQLDatabase.from_uri(url)
 
 def snowflake_sqlalchemy_20_monkey_patches():
