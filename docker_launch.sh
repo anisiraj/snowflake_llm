@@ -6,4 +6,5 @@ docker run -p 7860:7860\
     --env SNOWFLAKE_ROLE\
     --env SNOWFLAKE_WAREHOUSE\
     --env SNOWFLAKE_ACCOUNT\
+    --env LLM_SNOWFLAKE_PASSWORD\
     snowflake_llm

@@ -2,6 +2,7 @@ import random
 import gradio as gr
 from snowflake_llm.agent import get_query_chain
 import sys
+import os
 
 
 def respond(query, history):
@@ -14,6 +15,12 @@ def respond(query, history):
         return f"Sorry, I had error executing your query {e}."
 
 
+def simple_auth_function(username, password):
+    return username == "admin" and password == os.environ.get(
+        "LLM_SNOWFLAKE_PASSWORD"
+        )
+
+
 if __name__ == "__main__":
     server_name = "0.0.0.0"
 
@@ -24,4 +31,5 @@ if __name__ == "__main__":
             server_name = "127.0.0.1"
 
     print("starting app as {server_name}".format(server_name=server_name))
-    gr.ChatInterface(respond).launch(server_name=server_name)
+    gr.ChatInterface(respond).launch(
+        server_name=server_name, auth=simple_auth_function)
