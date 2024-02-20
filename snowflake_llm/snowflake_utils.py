@@ -3,6 +3,7 @@ from snowflake_llm import config
 from langchain_community.utilities import SQLDatabase
 from urllib.parse import quote_plus
 
+
 def _get_connection_url(database=None, schema=None):
     snowflake_account = os.getenv('SNOWFLAKE_ACCOUNT')
     username = os.getenv('SNOWFLAKE_USERNAME')
@@ -20,12 +21,13 @@ def get_lagchain_connection(database=None, schema=None):
     url = _get_connection_url(database, schema)
     return SQLDatabase.from_uri(url)
 
+
 def snowflake_sqlalchemy_20_monkey_patches():
     """
         this monkey patch is needed to make the snowflake-sqlalchemy to
         work with sqlalchemy 2.0 or higher which is needed for
         langchain versions. 
-        
+
     """
     import sqlalchemy.util.compat
 
@@ -49,4 +51,3 @@ def snowflake_sqlalchemy_20_monkey_patches():
     snowflake.sqlalchemy.snowdialect.SnowflakeDialect.has_table = has_table
 
 # usage: call this function before creating an engine:
-
