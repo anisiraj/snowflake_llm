@@ -131,5 +131,6 @@ uvicorn==0.27.1
 wcwidth==0.2.13
 websockets==11.0.3
 wheel==0.41.2
+xcffib==1.5.0
 yarl==1.9.4
 zipp==3.17.0
