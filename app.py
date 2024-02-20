@@ -1,6 +1,7 @@
 import random
 import gradio as gr
 from snowflake_llm.agent import get_query_chain
+import sys
 
 
 def respond(query, history):
@@ -11,10 +12,16 @@ def respond(query, history):
     except Exception as e:
         print(e)
         return f"Sorry, I had error executing your query {e}."
-    
 
 
+if __name__ == "__main__":
+    server_name = "0.0.0.0"
 
-if __name__ == "__main__": 
-    print("starting app") 
-    gr.ChatInterface(respond).launch()
+    if len(sys.argv) > 1:
+        print("running with command line arguments")
+        runtype = sys.argv[1]
+        if runtype == "local":
+            server_name = "127.0.0.1"
+
+    print("starting app as {server_name}".format(server_name=server_name))
+    gr.ChatInterface(respond).launch(server_name=server_name)
