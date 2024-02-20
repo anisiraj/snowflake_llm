@@ -17,4 +17,4 @@ def respond(query, history):
 
 if __name__ == "__main__": 
     print("starting app") 
-    gr.ChatInterface(respond).launch(server_name='0.0.0.0')
+    gr.ChatInterface(respond).launch()
