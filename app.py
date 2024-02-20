@@ -3,7 +3,7 @@ import gradio as gr
 from snowflake_llm.agent import get_query_chain
 import sys
 import os
-
+import asyncio
 
 def respond(query, history):
     chain, query_writer_chain = get_query_chain()
@@ -31,5 +31,8 @@ if __name__ == "__main__":
             server_name = "127.0.0.1"
 
     print("starting app as {server_name}".format(server_name=server_name))
-    gr.ChatInterface(respond).launch(
+    gr.ChatInterface(respond, 
+                     title="Snowfox",
+                     description="Snowfox is a chatbot that uses language models to answer questions about a Snowflake database.",
+                     ).launch(
         server_name=server_name, auth=simple_auth_function)
