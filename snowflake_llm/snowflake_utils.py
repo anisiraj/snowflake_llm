@@ -12,7 +12,7 @@ def _get_connection_url(database=None, schema=None):
     schema = schema or config.SCHEMA_NAME
     warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
     role = os.getenv('SNOWFLAKE_ROLE')
-    snowflake_url = f"snowflake://{username}:{quote_plus(password)}@{snowflake_account}/{database}/{schema}?warehouse={warehouse}&role={role}"
+    snowflake_url = f"snowflake://{username}:{quote_plus(password.encode('utf-8'))}@{snowflake_account}/{database}/{schema}?warehouse={warehouse}&role={role}"
     return snowflake_url
 
 
