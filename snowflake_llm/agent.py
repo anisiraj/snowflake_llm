@@ -7,8 +7,11 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain_community.utilities import SQLDatabase
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
 
 from snowflake_llm.snowflake_utils import get_lagchain_connection
+from langchain_core.runnables.history import RunnableWithMessageHistory
 
 
 def get_query_chain(db: SQLDatabase = None, llm: any = None):
@@ -34,4 +37,5 @@ def get_query_chain(db: SQLDatabase = None, llm: any = None):
         )
         | answer
     )
+    
     return chain, query_writer_chain
