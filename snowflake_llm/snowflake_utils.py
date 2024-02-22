@@ -16,7 +16,7 @@ def _get_connection_url(database=None, schema=None):
     return snowflake_url
 
 
-def get_lagchain_connection(database=None, schema=None):
+def get_lagchain_connection(database=None, schema=None) -> SQLDatabase:
     snowflake_sqlalchemy_20_monkey_patches()
     url = _get_connection_url(database, schema)
     return SQLDatabase.from_uri(url)
