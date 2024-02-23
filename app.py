@@ -1,11 +1,11 @@
 import random
 import gradio as gr
 from snowflake_llm.engine import QueryChatEngine
-from snowflake_llm.helpers import (get_meta_store, 
+from snowflake_llm.helpers import (get_meta_store,
                                    build_metadata_rag_query_engine)
 import sys
 import os
-
+from snowflake_llm.examples import example_questions
 
 
 # set up data base
@@ -14,7 +14,7 @@ metastore = get_meta_store()
 chat_agent = build_metadata_rag_query_engine(metastore=metastore)
 
 
-def respond(query, history):    
+def respond(query, history):
     try:
         res = chat_agent.answer(query)
         return res
@@ -42,6 +42,6 @@ if __name__ == "__main__":
     gr.ChatInterface(respond,
                      title="Snowfox",
                      description="Snowfox is a chatbot that uses language models to answer questions about a Snowflake database.",
-                     examples=[["How many entrie are in catalog page"]],
+                     examples=example_questions,
                      ).launch(
         server_name=server_name, auth=simple_auth_function)

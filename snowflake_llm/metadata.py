@@ -14,7 +14,7 @@ from langchain_core.vectorstores import VectorStore
 def convert_table_info_to_documents(table_info) -> List[Document]:
     """_summary_
 
-        split db description in per table DDL definition as t follows a specific format starting with create
+        split db description in per table DDL definition as it follows a specific format starting with create
     """
     s = ['CREATE'+d for d in table_info.split('CREATE') if d.strip()]
     docs = [Document(page_content=x) for x in s]
