@@ -26,9 +26,8 @@ def table_list_document(table_names):
     return Document(page_content=info)
 
 
-def build_faiss_metadata_store(db: SQLDatabase,
-                               include_table_names_as_metadta=True
-                               ) -> VectorStore:
+def build_faiss_metadata_store(
+        db: SQLDatabase) -> VectorStore:
     """_summary_
 
     Args:
@@ -43,8 +42,8 @@ def build_faiss_metadata_store(db: SQLDatabase,
     db = db or get_lagchain_connection()
 
     documents = convert_table_info_to_documents(table_info)
-    if include_table_names_as_metadta:
-        documents.append(table_list_document(table_names))
+    # if include_table_names_as_metadta:
+    #     documents.append(table_list_document(table_names))
 
     metadata_vector_store = FAISS.from_documents(documents, embeddings)
     return metadata_vector_store
